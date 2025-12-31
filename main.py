@@ -15,6 +15,8 @@ from sqlalchemy.exc import SQLAlchemyError
 import logging
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.middleware.cors import CORSMiddleware
+from config import engine
+from models import Base
 
 
 logging.basicConfig(level=logging.INFO)
@@ -37,6 +39,7 @@ def get_db():
         yield db
     finally:
         db.close()
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
@@ -47,11 +50,13 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 @app.exception_handler(SQLAlchemyError)
 async def sqlalchemy_exception_handler(request, exc):
     logger.error(f"DB Error: {exc}")
-    return HTTPException(status_code=500, detail="A Database error occurred")
+    return JSONResponse(
+        status_code=500,
+        content={"detail": "A database error occurred"}
+    )
 
 
 @app.post("/orders", status_code=201)
