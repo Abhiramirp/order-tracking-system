@@ -56,12 +56,12 @@ Initial users are created once after deployment and stored permanently in the da
 ## Demo Credentials (After Initial Setup)
 
 Operations Team:
-- Username: op1
+- Username: ops1
 - Password: op@123
 
 Merchant:
-- Username: merchant1
-- Password: Merchant@123
+- Username: merchant
+- Password: merchant123
 
 
 
@@ -75,8 +75,8 @@ Merchant:
 
    Request body:
    {
-     "username": "admin",
-     "password": "Admin@123",
+     "username": "ops1",
+     "password": "ops123",
      "role": "operations_team"
    }
 
