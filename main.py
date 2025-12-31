@@ -40,10 +40,12 @@ def get_db():
         yield db
     finally:
         db.close()
-Base.metadata.create_all(bind=engine)
+
 
 app = FastAPI()
-
+@app.on_event("startup")
+def startup_event():
+    Base.metadata.create_all(bind=engine)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],  
