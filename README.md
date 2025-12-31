@@ -60,7 +60,7 @@ Operations Team:
 - Password: op@123
 
 Merchant:
-- Username: merchant
+- Username: merchant1
 - Password: merchant123
 
 
